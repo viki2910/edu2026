@@ -31,15 +31,15 @@
 <body class="font-sans text-slate-800 bg-slate-50 min-h-screen selection:bg-cyan-200">
 
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm text-white z-50 shadow-lg border-b border-cyan-900/50">
+  <nav class="fixed top-0 w-full bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-sm text-white z-50 shadow-lg border-b border-cyan-900/50 transition-colors duration-300">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="font-bold text-xl flex items-center gap-2">
+      <a href="./01/index.html" class="font-bold text-xl flex items-center gap-2 hover:opacity-80 transition-opacity" title="인공지능 페이지로 이동">
         <i class="ph-fill ph-brain text-cyan-400 text-2xl"></i>
         <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-400">
           인공지능 기초
         </span>
-      </div>
-      <div class="hidden md:flex gap-6 font-medium text-sm">
+      </a>
+      <div class="hidden md:flex items-center gap-6 font-medium text-sm">
         <a href="#ethics" class="hover:text-cyan-400 transition-colors">인공지능 윤리</a>
         <a href="#tools" class="hover:text-cyan-400 transition-colors">학습 프로그램</a>
         <a href="#quiz" class="hover:text-cyan-400 transition-colors">OX 퀴즈</a>
