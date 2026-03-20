@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인공지능 기초 특별수업</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    /* Custom styles for animations and smooth transitions */
+    .dilemma-content {
+      transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, margin 0.5s ease-in-out;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    .dilemma-card.active .dilemma-content {
+      max-height: 200px; /* 충분한 높이 지정 */
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 min-h-screen selection:bg-cyan-200">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm text-white z-50 shadow-lg border-b border-cyan-900/50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="font-bold text-xl flex items-center gap-2">
+        <i class="ph-fill ph-brain text-cyan-400 text-2xl"></i>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-400">
+          인공지능 기초
+        </span>
+      </div>
+      <div class="hidden md:flex gap-6 font-medium text-sm">
+        <a href="#ethics" class="hover:text-cyan-400 transition-colors">인공지능 윤리</a>
+        <a href="#tools" class="hover:text-cyan-400 transition-colors">학습 프로그램</a>
+        <a href="#quiz" class="hover:text-cyan-400 transition-colors">OX 퀴즈</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative h-screen flex flex-col items-center justify-center bg-slate-900 text-white text-center px-4 overflow-hidden">
+    <!-- Background Tech Overlay -->
+    <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900 via-slate-900 to-black">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-50"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="z-10 max-w-4xl flex flex-col items-center mt-16">
+      <span class="flex items-center gap-2 text-cyan-400 font-semibold tracking-widest mb-6 border border-cyan-400/50 bg-cyan-900/30 px-5 py-2 rounded-full text-sm">
+        <i class="ph-fill ph-sparkle text-base"></i> 정보 특별수업
+      </span>
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
+        AI와 함께 그리는 <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">우리의 미래</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl">
+        인공지능은 마법이 아니라 우리가 만들어가는 기술입니다.<br/>
+        올바르게 사용하는 방법(윤리)을 배우고, 직접 AI를 만들어보는(실습)<br/>
+        흥미진진한 여정을 지금 시작해볼까요?
+      </p>
+      
+      <a href="#ethics" class="animate-bounce mt-8 p-3 rounded-full bg-cyan-900/50 hover:bg-cyan-600 transition-all border border-cyan-500/50 text-cyan-400 hover:text-white shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+        <i class="ph ph-caret-down text-3xl"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Ethics Section -->
+  <section id="ethics" class="py-24 px-4 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform -translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <div class="inline-flex justify-center items-center p-4 bg-cyan-50 rounded-2xl mb-4 text-cyan-600">
+          <i class="ph-fill ph-shield-warning text-4xl"></i>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">인공지능 윤리: AI 시대의 나침반</h2>
+        <p class="text-slate-600 text-lg">기술이 발전할수록 우리의 올바른 선택이 중요해집니다.<br/>아래 딜레마 카드를 클릭하여 생각해보세요.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6" id="dilemma-container">
+        <!-- Card 1 -->
+        <div class="dilemma-card group cursor-pointer rounded-2xl border-2 transition-all duration-300 p-6 flex flex-col items-center text-center border-slate-100 bg-white hover:border-cyan-200 hover:shadow-md" data-id="1">
+          <div class="icon-bg mb-6 p-4 rounded-full transition-colors bg-slate-100 text-slate-500 group-hover:bg-cyan-100 group-hover:text-cyan-600">
+            <i class="ph-fill ph-warning text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">자율주행차의 딜레마</h3>
+          <p class="text-cyan-600 font-medium mb-4">Q. 브레이크가 고장 난 자율주행차, 누구를 구해야 할까?</p>
+          
+          <div class="dilemma-content w-full">
+            <p class="text-slate-600 leading-relaxed text-sm bg-white p-4 rounded-lg border border-cyan-100 text-left">
+              직진하면 5명의 보행자를 치고, 방향을 틀면 운전자가 절벽으로 떨어집니다. 인공지능은 누구를 살리도록 프로그래밍되어야 할까요? 생명의 가치를 AI에게 어떻게 가르칠 수 있을까요?
+            </p>
+          </div>
+          <div class="mt-auto pt-4 text-xs font-semibold text-slate-400 toggle-text">클릭하여 상황 보기</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="dilemma-card group cursor-pointer rounded-2xl border-2 transition-all duration-300 p-6 flex flex-col items-center text-center border-slate-100 bg-white hover:border-cyan-200 hover:shadow-md" data-id="2">
+          <div class="icon-bg mb-6 p-4 rounded-full transition-colors bg-slate-100 text-slate-500 group-hover:bg-cyan-100 group-hover:text-cyan-600">
+            <i class="ph-fill ph-shield-warning text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">데이터와 편향성</h3>
+          <p class="text-cyan-600 font-medium mb-4">Q. AI 면접관이 특정 성별만 합격시킨다면?</p>
+          
+          <div class="dilemma-content w-full">
+            <p class="text-slate-600 leading-relaxed text-sm bg-white p-4 rounded-lg border border-cyan-100 text-left">
+              과거의 채용 데이터를 학습한 AI가 '남성'이 일을 더 잘한다고 잘못 판단하여 여성 지원자를 모두 탈락시켰습니다. AI가 차별을 배우지 않게 하려면 우리는 어떤 데이터를 주어야 할까요?
+            </p>
+          </div>
+          <div class="mt-auto pt-4 text-xs font-semibold text-slate-400 toggle-text">클릭하여 상황 보기</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="dilemma-card group cursor-pointer rounded-2xl border-2 transition-all duration-300 p-6 flex flex-col items-center text-center border-slate-100 bg-white hover:border-cyan-200 hover:shadow-md" data-id="3">
+          <div class="icon-bg mb-6 p-4 rounded-full transition-colors bg-slate-100 text-slate-500 group-hover:bg-cyan-100 group-hover:text-cyan-600">
+            <i class="ph-fill ph-image text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">딥페이크와 저작권</h3>
+          <p class="text-cyan-600 font-medium mb-4">Q. 내 얼굴과 목소리를 AI가 함부로 쓴다면?</p>
+          
+          <div class="dilemma-content w-full">
+            <p class="text-slate-600 leading-relaxed text-sm bg-white p-4 rounded-lg border border-cyan-100 text-left">
+              인공지능이 유명 가수의 목소리를 똑같이 따라 해 노래를 불렀습니다. 이 노래의 저작권은 누구에게 있을까요? 진짜와 가짜를 구별하기 힘든 시대, 우리의 윤리적 책임은 무엇일까요?
+            </p>
+          </div>
+          <div class="mt-auto pt-4 text-xs font-semibold text-slate-400 toggle-text">클릭하여 상황 보기</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools" class="py-24 px-4 bg-slate-900 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="inline-flex justify-center items-center p-4 bg-purple-900/30 rounded-2xl mb-4 text-purple-400 border border-purple-500/20">
+          <i class="ph-fill ph-robot text-4xl"></i>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">여름 학기에 배울 AI 학습 도구들</h2>
+        <p class="text-slate-400 text-lg mb-12">
+          직접 만들어보는 것만큼 좋은 공부는 없죠!<br/>
+          여름 학기 실습에 대한 자세한 내용은 아래 페이지에서 확인해 보세요.
+        </p>
+        
+        <a href="./01index.html" class="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-500 transition-all shadow-lg shadow-purple-900/50 transform hover:-translate-y-1">
+          <i class="ph-fill ph-robot text-2xl"></i>
+          여름 학기 페이지로 이동하기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section id="quiz" class="py-24 px-4 bg-cyan-50">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">마무리 OX 미니 퀴즈</h2>
+        <p class="text-slate-600">오늘 알아본 인공지능 기초 지식을 퀴즈로 테스트해볼까요?</p>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 shadow-xl border border-cyan-100" id="quiz-root">
+        <!-- Quiz content will be injected here via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 py-10 text-center text-slate-500 text-sm">
+    <div class="flex justify-center items-center gap-2 mb-4">
+      <i class="ph-fill ph-brain text-xl text-slate-600"></i>
+      <span class="font-semibold text-slate-400">정보 교과 인공지능 기초 수업</span>
+    </div>
+    <p>중학교 정보 수업용 교육 랜딩페이지입니다. 기술과 윤리가 함께하는 미래를 만듭니다.</p>
+    <p class="mt-2">© 2024 정보 교실. All rights reserved.</p>
+  </footer>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    // --- Ethics Section Logic ---
+    const dilemmaCards = document.querySelectorAll('.dilemma-card');
+
+    dilemmaCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const isActive = card.classList.contains('active');
+        
+        // Reset all cards
+        dilemmaCards.forEach(c => {
+          c.classList.remove('active', 'border-cyan-500', 'bg-cyan-50', 'shadow-lg', 'shadow-cyan-100');
+          c.classList.add('border-slate-100', 'bg-white');
+          c.querySelector('.icon-bg').className = 'icon-bg mb-6 p-4 rounded-full transition-colors bg-slate-100 text-slate-500 group-hover:bg-cyan-100 group-hover:text-cyan-600';
+          c.querySelector('.toggle-text').innerText = '클릭하여 상황 보기';
+        });
+
+        // Toggle clicked card
+        if (!isActive) {
+          card.classList.add('active', 'border-cyan-500', 'bg-cyan-50', 'shadow-lg', 'shadow-cyan-100');
+          card.classList.remove('border-slate-100', 'bg-white');
+          card.querySelector('.icon-bg').className = 'icon-bg mb-6 p-4 rounded-full transition-colors bg-cyan-500 text-white';
+          card.querySelector('.toggle-text').innerText = '클릭하여 닫기';
+        }
+      });
+    });
+
+    // --- Quiz Section Logic ---
+    const questions = [
+      {
+        q: "인공지능은 편견이나 차별 없이 항상 100% 공정하고 올바른 판단만 내린다.",
+        answer: "X",
+        explanation: "인공지능은 인간이 제공한 데이터를 학습하므로, 데이터에 편견이 있다면 AI도 차별적인 판단을 내릴 수 있습니다."
+      },
+      {
+        q: "티처블 머신(Teachable Machine)을 사용하면 코딩 지식이 없어도 인공지능 모델을 만들 수 있다.",
+        answer: "O",
+        explanation: "티처블 머신은 복잡한 코딩 없이 이미지나 소리 등을 웹캠이나 마이크로 모아 쉽게 AI를 학습시킬 수 있는 도구입니다."
+      },
+      {
+        q: "인공지능이 그린 그림이나 만든 음악은 모두 내 마음대로 상업적으로 이용해도 문제가 없다.",
+        answer: "X",
+        explanation: "인공지능 창작물의 저작권은 현재 매우 복잡한 윤리적, 법적 문제이므로 함부로 상업적으로 이용하면 저작권 침해 우려가 있습니다."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let showResult = false;
+    let selectedAnswer = null;
+    let feedback = null;
+
+    const quizRoot = document.getElementById('quiz-root');
+
+    function renderQuiz() {
+      if (showResult) {
+        quizRoot.innerHTML = `
+          <div class="text-center py-12 fade-in-up">
+            <div class="inline-flex items-center justify-center w-28 h-28 rounded-full bg-cyan-100 mb-6 border-4 border-cyan-200 shadow-inner">
+              <i class="ph-fill ph-sparkle text-cyan-600 text-5xl"></i>
+            </div>
+            <h3 class="text-3xl font-bold text-slate-800 mb-4">AI 기초 테스트 완료!</h3>
+            <p class="text-xl text-slate-600 mb-8">
+              총 ${questions.length}문제 중 <strong class="text-cyan-600 text-3xl mx-2">${score}</strong>문제를 맞혔습니다.
+            </p>
+            
+            <div class="bg-slate-50 p-6 rounded-2xl text-center mb-10 border border-slate-100 shadow-sm">
+              <p class="text-slate-700 leading-relaxed font-medium">
+                인공지능은 우리의 삶을 편리하게 해주지만,<br/>
+                그만큼 올바르게 사용하려는 우리의 노력이 필요합니다.<br/>
+                이번 학기 수업에서 더 재미있는 AI의 세계를 탐험해봐요!
+              </p>
+            </div>
+
+            <button onclick="resetQuiz()" class="px-8 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all hover:shadow-lg transform hover:-translate-y-1">
+              다시 풀어보기
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = questions[currentQ];
+      
+      let oBtnClass = "border-slate-200 bg-slate-50 text-blue-500 hover:border-blue-300 hover:bg-blue-50";
+      let xBtnClass = "border-slate-200 bg-slate-50 text-rose-500 hover:border-rose-300 hover:bg-rose-50";
+
+      if (selectedAnswer !== null) {
+        if (selectedAnswer === "O") {
+          oBtnClass = feedback === "correct" ? "border-green-500 bg-green-100 text-green-600" : "border-rose-500 bg-rose-100 text-rose-600";
+          xBtnClass += " opacity-50 grayscale cursor-not-allowed";
+        } else if (selectedAnswer === "X") {
+          xBtnClass = feedback === "correct" ? "border-green-500 bg-green-100 text-green-600" : "border-rose-500 bg-rose-100 text-rose-600";
+          oBtnClass += " opacity-50 grayscale cursor-not-allowed";
+        }
+      }
+
+      let feedbackHTML = "";
+      if (feedback !== null) {
+        const isCorrect = feedback === 'correct';
+        feedbackHTML = `
+          <div class="mt-8 p-6 rounded-xl fade-in-up border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-rose-50 border-rose-200'}">
+            <p class="font-bold text-lg mb-2 flex items-center gap-2 ${isCorrect ? 'text-green-700' : 'text-rose-700'}">
+              <i class="ph-fill ${isCorrect ? 'ph-check-circle' : 'ph-x-circle'} text-xl"></i>
+              ${isCorrect ? '정답입니다!' : '아쉽네요. 오답입니다!'}
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              <span class="font-bold">해설: </span>${q.explanation}
+            </p>
+          </div>
+        `;
+      }
+
+      quizRoot.innerHTML = `
+        <div class="fade-in-up">
+          <div class="flex justify-between items-center mb-8 border-b border-slate-100 pb-4">
+            <span class="font-bold text-cyan-600 px-4 py-1 bg-cyan-100 rounded-full">문제 ${currentQ + 1} / ${questions.length}</span>
+            <span class="text-slate-400 text-sm font-medium flex items-center gap-1">
+              <i class="ph-fill ph-brain text-base"></i> 신중하게 생각하세요!
+            </span>
+          </div>
+          
+          <div class="min-h-[120px] flex items-center justify-center mb-10">
+            <h3 class="text-2xl font-bold text-slate-800 leading-relaxed text-center">
+              ${q.q}
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+            <button
+              ${selectedAnswer !== null ? 'disabled' : ''}
+              onclick="handleAnswer('O')"
+              class="py-12 rounded-2xl border-4 font-bold text-6xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center ${oBtnClass}"
+            >
+              O
+            </button>
+            <button
+              ${selectedAnswer !== null ? 'disabled' : ''}
+              onclick="handleAnswer('X')"
+              class="py-12 rounded-2xl border-4 font-bold text-6xl transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center ${xBtnClass}"
+            >
+              X
+            </button>
+          </div>
+
+          ${feedbackHTML}
+        </div>
+      `;
+    }
+
+    window.handleAnswer = function(answer) {
+      if (selectedAnswer !== null) return; // Prevent double clicks
+
+      selectedAnswer = answer;
+      const isCorrect = answer === questions[currentQ].answer;
+      feedback = isCorrect ? "correct" : "wrong";
+      
+      if (isCorrect) score += 1;
+
+      renderQuiz(); // Update UI to show feedback
+
+      // Wait 2.5 seconds, then move to next question or result
+      setTimeout(() => {
+        if (currentQ < questions.length - 1) {
+          currentQ += 1;
+          selectedAnswer = null;
+          feedback = null;
+          renderQuiz();
+        } else {
+          showResult = true;
+          renderQuiz();
+        }
+      }, 2500);
+    };
+
+    window.resetQuiz = function() {
+      currentQ = 0;
+      score = 0;
+      showResult = false;
+      selectedAnswer = null;
+      feedback = null;
+      renderQuiz();
+    };
+
+    // Initial render
+    renderQuiz();
+  </script>
+</body>
+</html>
